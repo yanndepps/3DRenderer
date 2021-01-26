@@ -88,6 +88,30 @@ void update(void) {
     // ...
 }
 
+// -- Draw a background grid that fills the entire window.
+// -- Lines should be rendered at every row/col multiple of 10.
+//
+// -- +--+--+--+--+--+--+--+--+--+
+// -- |  |  |  |  |  |  |  |  |  |
+// -- |__|__|__|__|__|__|__|__|__|
+// -- |  |  |  |  |  |  |  |  |  |
+// -- |__|__|__|__|__|__|__|__|__|
+// -- |  |  |  |  |  |  |  |  |  |
+// -- |__|__|__|__|__|__|__|__|__|
+// -- |  |  |  |  |  |  |  |  |  |
+// -- |  |  |  |  |  |  |  |  |  |
+// -- +--+--+--+--+--+--+--+--+--+
+
+void draw_grid(void) {
+    for (int y = 0; y < window_height; y++) {
+        for (int x = 0; x < window_width; x++) {
+            if ( x % 10 == 0 || y % 10 == 0 ) {
+                color_buffer[( window_width * y ) + x] = 0xFF444444;
+            }
+        }
+    }
+}
+
 void clear_color_buffer(uint32_t color) {
     for (int y = 0; y < window_height; y++) {
         for (int x = 0; x < window_width; x++) {
@@ -107,10 +131,11 @@ void render_color_buffer(void) {
 }
 
 void render(void) {
-    SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);
-    SDL_RenderClear(renderer);
+    /* SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255); */
+    /* SDL_RenderClear(renderer); */
+    draw_grid();
     render_color_buffer();
-    clear_color_buffer(0xFFFFFF00);
+    clear_color_buffer(0xFF000000);
     SDL_RenderPresent(renderer);
 }
 
