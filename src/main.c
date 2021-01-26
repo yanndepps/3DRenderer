@@ -121,6 +121,17 @@ void draw_dots(void) {
     }
 }
 
+// -- Renders a ( filled ) rectangle on the screen
+void draw_rect(int x, int y, int width, int height, uint32_t color) {
+    for (int i = 0; i < width; i++) {
+        for (int j = 0; j < height; j++) {
+            int current_x = x + i;
+            int current_y = y + j;
+            color_buffer[( window_width * current_y ) + current_x] = color;
+        }
+    }
+}
+
 void clear_color_buffer(uint32_t color) {
     for (int y = 0; y < window_height; y++) {
         for (int x = 0; x < window_width; x++) {
@@ -142,8 +153,11 @@ void render_color_buffer(void) {
 void render(void) {
     SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);
     SDL_RenderClear(renderer);
+
     draw_dots();
+    draw_rect(300, 200, 300, 150, 0xFFFF00FF);
     /* draw_grid(); */
+
     render_color_buffer();
     clear_color_buffer(0xFF000000);
     SDL_RenderPresent(renderer);
