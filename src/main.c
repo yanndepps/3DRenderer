@@ -2,8 +2,7 @@
 #include "vector.h"
 
 // declare an array of vectors/points
-// define N_POINTS = ( 9*9*9 )
-const int N_POINTS = 9 * 9 * 9;
+#define N_POINTS (9 * 9 * 9)
 vec3_t cube_points[N_POINTS];
 
 bool is_running = false;
