@@ -86,6 +86,13 @@ void draw_rect(int x, int y, int width, int height, uint32_t color) {
   }
 }
 
+// -- Draw colored pixel
+void draw_pixel(int x, int y, uint32_t color) {
+  if (x < window_width && y < window_height) {
+    color_buffer[(window_width * y) + x] = color;
+  }
+}
+
 void clear_color_buffer(uint32_t color) {
   for (int y = 0; y < window_height; y++) {
     for (int x = 0; x < window_width; x++) {

@@ -38,7 +38,9 @@ void render(void) {
   SDL_RenderClear(renderer);
 
   draw_dots();
+  draw_pixel(20, 20, 0xFFFFFD01);
   draw_rect(300, 200, 300, 150, 0xFFFF00FF);
+
   /* draw_grid(); */
 
   render_color_buffer();
