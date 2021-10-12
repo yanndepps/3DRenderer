@@ -1,3 +1,4 @@
+#include "array.h"
 #include "display.h"
 #include "mesh.h"
 #include "vector.h"
@@ -5,7 +6,7 @@
 ////////////////////////////////////////////////////////////
 // Array of triangles that should be rendered frame by frame
 ////////////////////////////////////////////////////////////
-triangle_t triangles_to_render[N_MESH_FACES];
+triangle_t *triangles_to_render = NULL;
 
 // Global variables for execution status and game loop
 vec3_t camera_position = {.x = 0, .y = 0, .z = -5};
@@ -69,6 +70,9 @@ void update(void) {
 
   previous_frame_time = SDL_GetTicks();
 
+  // init the array of triangles to render
+  triangles_to_render = NULL;
+
   cube_rotation.x += 0.01;
   cube_rotation.y += 0.01;
   cube_rotation.z += 0.01;
@@ -105,7 +109,7 @@ void update(void) {
       projected_triangle.points[j] = projected_point;
     }
     // save the projected triangle in the array of triangles to render
-    triangles_to_render[i] = projected_triangle;
+    array_push(triangles_to_render, projected_triangle);
   }
 }
 
@@ -117,19 +121,28 @@ void render(void) {
   draw_dots();
 
   // loop all projected triangles and render them
-  for (int i = 0; i < N_MESH_FACES; i++) {
+  int num_triangles = array_length(triangles_to_render);
+
+  for (int i = 0; i < num_triangles; i++) {
     triangle_t triangle = triangles_to_render[i];
 
     // draw vertex points
-    draw_rect(triangle.points[0].x, triangle.points[0].y, 3, 3, 0xFFFFFF00);
-    draw_rect(triangle.points[1].x, triangle.points[1].y, 3, 3, 0xFFFFFF00);
-    draw_rect(triangle.points[2].x, triangle.points[2].y, 3, 3, 0xFFFFFF00);
+    draw_rect(triangle.points[0].x, triangle.points[0].y, 3, 3,
+              0xFFFFFF00); // vertex A
+    draw_rect(triangle.points[1].x, triangle.points[1].y, 3, 3,
+              0xFFFFFF00); // vertex B
+    draw_rect(triangle.points[2].x, triangle.points[2].y, 3, 3,
+              0xFFFFFF00); // vertex C
 
     // draw unfilled triangles
-    draw_triangle(triangle.points[0].x, triangle.points[0].y,
-                  triangle.points[1].x, triangle.points[1].y,
-                  triangle.points[2].x, triangle.points[2].y, 0xFF00FF00);
+    draw_triangle(triangle.points[0].x, triangle.points[0].y, // vertex A
+                  triangle.points[1].x, triangle.points[1].y, // vertex B
+                  triangle.points[2].x, triangle.points[2].y, // vertex C
+                  0xFF00FF00);
   }
+
+  // clear the array of triangles to render every frame loop
+  array_free(triangles_to_render);
 
   render_color_buffer();
   clear_color_buffer(0xFF000000);
