@@ -2,17 +2,21 @@
 #include "mesh.h"
 #include "vector.h"
 
+////////////////////////////////////////////////////////////
+// Array of triangles that should be rendered frame by frame
+////////////////////////////////////////////////////////////
 triangle_t triangles_to_render[N_MESH_FACES];
 
+// Global variables for execution status and game loop
 vec3_t camera_position = {.x = 0, .y = 0, .z = -5};
 vec3_t cube_rotation = {.x = 0, .y = 0, .z = 0};
-
 float fov_factor = 640;
-
 bool is_running = false;
 int previous_frame_time = 0;
 
-// ---
+////////////////////////////////////////////////////////////
+// Setup function to initialize variables and game objects
+////////////////////////////////////////////////////////////
 void setup(void) {
   // allocate the required bytes in memory for the color buffer
   color_buffer =
@@ -24,6 +28,9 @@ void setup(void) {
                                            window_width, window_height);
 }
 
+////////////////////////////////////////////////////////////
+// Poll system events and handle keyboard input
+////////////////////////////////////////////////////////////
 void process_input(void) {
   SDL_Event event;
   SDL_PollEvent(&event);
@@ -48,8 +55,10 @@ vec2_t project(vec3_t point) {
   return projected_point;
 }
 
+////////////////////////////////////////////////////////////
+// Update function frame by frame with a fixed time step
+////////////////////////////////////////////////////////////
 void update(void) {
-  // consistant time steps using SDL_Delay() -> release CPU usage
   // wait some time until we reach the target frame time in ms
   int time_to_wait = FRAME_TARGET_TIME - (SDL_GetTicks() - previous_frame_time);
 
@@ -100,6 +109,9 @@ void update(void) {
   }
 }
 
+////////////////////////////////////////////////////////////
+// Render function to draw objects on the display
+////////////////////////////////////////////////////////////
 void render(void) {
   /* draw_grid(); */
   draw_dots();
@@ -124,7 +136,9 @@ void render(void) {
   SDL_RenderPresent(renderer);
 }
 
+////////////////////////////////////////////////////////////
 // Main function
+////////////////////////////////////////////////////////////
 int main(void) {
   is_running = initialize_window();
   setup();
