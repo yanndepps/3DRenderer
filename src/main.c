@@ -88,6 +88,7 @@ void update(void) {
 
       // project the current vertex
       vec2_t projected_point = project(transformed_vertex);
+
       // scale and translate the projected points to the middle of the screen
       projected_point.x += (window_width / 2);
       projected_point.y += (window_height / 2);
@@ -106,9 +107,16 @@ void render(void) {
   // loop all projected triangles and render them
   for (int i = 0; i < N_MESH_FACES; i++) {
     triangle_t triangle = triangles_to_render[i];
+
+    // draw vertex points
     draw_rect(triangle.points[0].x, triangle.points[0].y, 3, 3, 0xFFFFFF00);
     draw_rect(triangle.points[1].x, triangle.points[1].y, 3, 3, 0xFFFFFF00);
     draw_rect(triangle.points[2].x, triangle.points[2].y, 3, 3, 0xFFFFFF00);
+
+    // draw unfilled triangles
+    draw_triangle(triangle.points[0].x, triangle.points[0].y,
+                  triangle.points[1].x, triangle.points[1].y,
+                  triangle.points[2].x, triangle.points[2].y, 0xFF00FF00);
   }
 
   render_color_buffer();
