@@ -6,7 +6,7 @@
 ////////////////////////////////////////////////////////////
 // Array of triangles that should be rendered frame by frame
 ////////////////////////////////////////////////////////////
-triangle_t *triangles_to_render = NULL;
+triangle_t* triangles_to_render = NULL;
 
 // Global variables for execution status and game loop
 vec3_t camera_position = {.x = 0, .y = 0, .z = -5};
@@ -17,10 +17,11 @@ int previous_frame_time = 0;
 ////////////////////////////////////////////////////////////
 // Setup function to initialize variables and game objects
 ////////////////////////////////////////////////////////////
-void setup(void) {
+void setup(void)
+{
   // allocate the required bytes in memory for the color buffer
   color_buffer =
-      (uint32_t *)malloc(sizeof(uint32_t) * window_width * window_height);
+      (uint32_t*)malloc(sizeof(uint32_t) * window_width * window_height);
 
   // create a SDL texture that is used to display the color buffer
   color_buffer_texture = SDL_CreateTexture(renderer, SDL_PIXELFORMAT_ARGB8888,
@@ -35,7 +36,8 @@ void setup(void) {
 ////////////////////////////////////////////////////////////
 // Poll system events and handle keyboard input
 ////////////////////////////////////////////////////////////
-void process_input(void) {
+void process_input(void)
+{
   SDL_Event event;
   SDL_PollEvent(&event);
 
@@ -53,7 +55,8 @@ void process_input(void) {
 ////////////////////////////////////////////////////////////
 // Function that receives a 3D vector and returns a 2D point
 ////////////////////////////////////////////////////////////
-vec2_t project(vec3_t point) {
+vec2_t project(vec3_t point)
+{
   vec2_t projected_point = {.x = (fov_factor * point.x) / point.z,
                             .y = (fov_factor * point.y) / point.z};
   return projected_point;
@@ -62,7 +65,8 @@ vec2_t project(vec3_t point) {
 ////////////////////////////////////////////////////////////
 // Update function frame by frame with a fixed time step
 ////////////////////////////////////////////////////////////
-void update(void) {
+void update(void)
+{
   // wait some time until we reach the target frame time in ms
   int time_to_wait = FRAME_TARGET_TIME - (SDL_GetTicks() - previous_frame_time);
 
@@ -120,7 +124,8 @@ void update(void) {
 ////////////////////////////////////////////////////////////
 // Render function to draw objects on the display
 ////////////////////////////////////////////////////////////
-void render(void) {
+void render(void)
+{
   /* draw_grid(); */
   draw_dots();
 
@@ -156,7 +161,8 @@ void render(void) {
 ////////////////////////////////////////////////////////////
 // Free the memory that was dynamically allocated
 ////////////////////////////////////////////////////////////
-void free_ressources(void) {
+void free_ressources(void)
+{
   free(color_buffer);
   array_free(mesh.faces);
   array_free(mesh.vertices);
@@ -165,7 +171,8 @@ void free_ressources(void) {
 ////////////////////////////////////////////////////////////
 // Main function
 ////////////////////////////////////////////////////////////
-int main(void) {
+int main(void)
+{
   is_running = initialize_window();
   setup();
 
