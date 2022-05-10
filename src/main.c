@@ -106,6 +106,8 @@ void update(void)
 
     triangle_t projected_triangle;
 
+    vec3_t transformed_vertices[3];
+
     // loop all three vertices of this current face and apply transformations
     for (int j = 0; j < 3; j++) {
       vec3_t transformed_vertex = face_vertices[j];
@@ -117,8 +119,19 @@ void update(void)
       // translate the vertex away from the camera
       transformed_vertex.z -= camera_position.z;
 
+      // Save transformed vertex in the array of transformed vertices
+      transformed_vertices[j] = transformed_vertex;
+    }
+
+    // Check backface culling
+    vec3_t vector_a = transformed_vertices[0]; /*   A   */
+    vec3_t vector_b = transformed_vertices[1]; /*  / \  */
+    vec3_t vector_c = transformed_vertices[2]; /* C---B */
+
+    // Loop all three vertices to perform the projection
+    for (int j = 0; j < 3; j++) {
       // project the current vertex
-      vec2_t projected_point = project(transformed_vertex);
+      vec2_t projected_point = project(transformed_vertices[j]);
 
       // scale and translate the projected points to the middle of the screen
       projected_point.x += (window_width / 2);
