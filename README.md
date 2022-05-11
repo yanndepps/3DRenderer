@@ -1,3 +1,5 @@
+
+
 # 3D Graphics Programming From Scratch
 
 
@@ -5,7 +7,6 @@
 
 -   pure C and SDL
 -   fundations of 3D graphics
--   setting up our application
 -   trigonometry and linear algebra
 -   vertices and meshes
 -   displaying pixels and color buffer
@@ -14,3 +15,4 @@
 -   handling textures and texture mapping
 -   camera and view transformations
 -   displaying complex 3D models
+
