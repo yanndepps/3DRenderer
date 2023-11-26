@@ -175,26 +175,29 @@ render (void)
   draw_dots ();
 
   // loop all projected triangles and render them
-  int num_triangles = array_length (triangles_to_render);
+  /* int num_triangles = array_length (triangles_to_render); */
 
-  for (int i = 0; i < num_triangles; i++)
-    {
-      triangle_t triangle = triangles_to_render[i];
+  /* for (int i = 0; i < num_triangles; i++) */
+  /*   { */
+  /*     triangle_t triangle = triangles_to_render[i]; */
 
-      // draw vertex points
-      draw_rect (triangle.points[0].x, triangle.points[0].y, 3, 3,
-                 0xFFFFFF00); // vertex A
-      draw_rect (triangle.points[1].x, triangle.points[1].y, 3, 3,
-                 0xFFFFFF00); // vertex B
-      draw_rect (triangle.points[2].x, triangle.points[2].y, 3, 3,
-                 0xFFFFFF00); // vertex C
+  /*     // draw vertex points */
+  /*     draw_rect (triangle.points[0].x, triangle.points[0].y, 3, 3, */
+  /*                0xFFFFFF00); // vertex A */
+  /*     draw_rect (triangle.points[1].x, triangle.points[1].y, 3, 3, */
+  /*                0xFFFFFF00); // vertex B */
+  /*     draw_rect (triangle.points[2].x, triangle.points[2].y, 3, 3, */
+  /*                0xFFFFFF00); // vertex C */
 
-      // draw unfilled triangles
-      draw_triangle (triangle.points[0].x, triangle.points[0].y, // vertex A
-                     triangle.points[1].x, triangle.points[1].y, // vertex B
-                     triangle.points[2].x, triangle.points[2].y, // vertex C
-                     0xFF00FF00);
-    }
+  /*     // draw unfilled triangles */
+  /*     draw_triangle (triangle.points[0].x, triangle.points[0].y, // vertex A */
+  /*                    triangle.points[1].x, triangle.points[1].y, // vertex B */
+  /*                    triangle.points[2].x, triangle.points[2].y, // vertex C */
+  /*                    0xFF00FF00); */
+  /*   } */
+
+  // draw a simple triangle
+  draw_filled_triangle (300, 100, 50, 400, 500, 700, 0xFF00FF00);
 
   // clear the array of triangles to render every frame loop
   array_free (triangles_to_render);
