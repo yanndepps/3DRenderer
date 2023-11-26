@@ -1,8 +1,11 @@
-BasedOnStyle: LLVM
+BasedOnStyle: GNU
 IndentWidth: 2
 UseTab: ForIndentation
-BreakBeforeBraces : Linux
+BreakBeforeBraces : GNU
 ColumnLimit: 0
+AllowShortBlocksOnASingleLine: Always
+AllowShortIfStatementsOnASingleLine: AllIfsAndElse
+
 # force pointers to the type for C++
 DerivePointerAlignment: false
 PointerAlignment: Left
